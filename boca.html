@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boca Chica | Restaurant Italien & Français</title>
+    <meta name="description"
+        content="Boca Chica : Saveurs d’Italie, élégance française. Restaurant chic et accessible à Casablanca.">
+
+    <!-- Importation des polices Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES CSS & RESET --- */
+        :root {
+            --primary-green: #556B2F;
+            --primary-brown: #4E342E;
+            --accent-gold: #C5A065;
+            --bg-cream: #F9F7F2;
+            --bg-white: #FFFFFF;
+            --text-dark: #2C2C2C;
+            --text-light: #F9F7F2;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --header-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Padding bottom for mobile sticky bar */
+            padding-bottom: 60px; 
+        }
+
+        @media (min-width: 769px) {
+            body { padding-bottom: 0; }
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--primary-brown);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- COMPOSANTS --- */
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: var(--bg-white);
+            border-color: var(--primary-green);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--bg-white);
+            color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--bg-white);
+            border-color: var(--bg-white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-white);
+            color: var(--primary-brown);
+            transform: translateY(-2px);
+        }
+
+        .btn-email {
+            background-color: var(--primary-brown);
+            color: var(--bg-white);
+            border-color: var(--primary-brown);
+        }
+
+        .btn-email:hover {
+            background-color: var(--bg-white);
+            color: var(--primary-brown);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            padding-bottom: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-gold);
+            margin: 10px auto 0;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--primary-green);
+            margin-bottom: var(--spacing-lg);
+            font-style: italic;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(249, 247, 242, 0.95);
+            backdrop-filter: blur(5px);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Style ajouté pour l'état scrolled */
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-brown);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--primary-green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        #home {
+            height: 85vh; /* Un peu plus haut pour l'impact */
+            min-height: 500px;
+            /* Placeholder image - Remplacez par votre image locale */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Effet Parallaxe */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--bg-white);
+            padding: 0 var(--spacing-sm);
+            margin-top: 0;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: var(--spacing-xs);
+            color: var(--bg-white);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: var(--spacing-md);
+            font-family: var(--font-heading);
+            font-style: italic;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* --- ABOUT SECTION --- */
+        #about {
+            padding: var(--spacing-lg) 0;
+            background-color: var(--bg-white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: var(--spacing-sm);
+            color: #555;
+            text-align: justify;
+            font-size: 1.05rem;
+        }
+
+        .about-image img {
+            border-radius: 4px;
+            box-shadow: 15px 15px 0px var(--primary-green);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* --- MENU NAV (NOUVEAU) --- */
+        /* Une barre de navigation rapide pour le menu */
+        .menu-sticky-nav {
+            position: sticky;
+            top: var(--header-height);
+            z-index: 900;
+            background: var(--bg-white);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border-top: 2px solid var(--primary-green);
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch; /* Scroll fluide iOS */
+        }
+        
+        .menu-sticky-nav::-webkit-scrollbar {
+            height: 4px;
+        }
+        .menu-sticky-nav::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+        }
+
+        .menu-sticky-nav ul {
+            display: flex;
+            justify-content: center;
+            min-width: 100%;
+        }
+
+        .menu-sticky-nav li a {
+            display: block;
+            padding: 15px 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            border-bottom: 3px solid transparent;
+        }
+
+        .menu-sticky-nav li a:hover,
+        .menu-sticky-nav li a.active {
+            color: var(--primary-green);
+            border-bottom: 3px solid var(--primary-green);
+        }
+
+        /* --- MENU SECTION --- */
+        #menu {
+            padding-bottom: var(--spacing-lg);
+            background-color: var(--bg-cream);
+        }
+        
+        /* Scroll margin pour compenser le header sticky quand on clique sur un lien */
+        article {
+            scroll-margin-top: calc(var(--header-height) + 60px); 
+        }
+
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: stretch;
+        }
+
+        .menu-category {
+            background: linear-gradient(180deg, var(--bg-white), #ffffff);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+            border-left: 6px solid var(--primary-green);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-category:hover {
+            transform: translateY(-3px);
+        }
+
+        .menu-category h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-brown);
+            text-align: left;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+        }
+        
+        .menu-item-content {
+            flex: 1;
+            padding-right: 15px;
+            min-width: 200px;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.3rem;
+            position: relative;
+            width: 100%;
+        }
+
+        .item-name {
+            font-weight: 700;
+            color: var(--primary-brown);
+            font-size: 1.1rem;
+            font-family: var(--font-heading);
+            background: var(--bg-white);
+            z-index: 1;
+            position: relative;
+            padding-right: 10px;
+        }
+
+        /* Dotted Leader Effect */
+        .menu-header::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px dotted #ccc;
+            z-index: 0;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-size: 1rem;
+            white-space: nowrap;
+            padding-left: 10px;
+            background: var(--bg-white);
+            z-index: 1;
+            font-variant-numeric: tabular-nums;
+            position: relative;
+        }
+
+        .item-desc {
+            font-size: 0.9rem;
+            color: #777;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* --- RESERVATION SECTION --- */
+        #reservation {
+            padding: var(--spacing-lg) 0;
+            background-color: var(--bg-white);
+            border-top: 1px solid #eee;
+        }
+
+        .reservation-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #ffffff 0%, #fcfcfc 100%);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid var(--primary-green);
+        }
+
+        .reservation-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-label {
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--primary-brown);
+            font-size: 0.95rem;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 12px 5px;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            border-radius: 0;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-dark);
+            background-color: transparent;
+            transition: all 0.3s;
+        }
+        
+        select.form-select {
+             cursor: pointer;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        /* --- CONTACT SECTION --- */
+        #contact {
+            padding: var(--spacing-lg) 0;
+            background-color: var(--bg-cream);
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .info-item {
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .info-icon {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-top: 2px;
+        }
+
+        .map-container {
+            height: 100%;
+            min-height: 400px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--primary-brown);
+            color: var(--bg-cream);
+            padding: var(--spacing-md) 0;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* --- MOBILE ACTION BAR (STICKY BOTTOM) --- */
+        .mobile-action-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1001;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 10px;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .mobile-action-bar a {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .mobile-action-bar .btn-call {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            border: 1px solid #ccc;
+        }
+
+        /* --- BACK TO TOP --- */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-gold);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 900;
+            border: none;
+        }
+        
+        #back-to-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        #back-to-top:hover {
+            transform: translateY(-5px);
+            background-color: var(--primary-green);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .mobile-action-bar {
+                display: flex;
+            }
+            
+            /* Ajustement du bouton back to top pour ne pas être caché par la barre mobile */
+            #back-to-top {
+                bottom: 80px; 
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 0;
+            }
+            
+            /* Cacher le menu de navigation normal sur mobile car on a la sticky bar */
+            /* Ou le laisser en hamburger si vous préférez, ici je le laisse compact */
+            .nav-links {
+                gap: 15px;
+                font-size: 0.85rem;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .about-grid,
+            .contact-wrapper,
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .reservation-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .menu-sticky-nav ul {
+                justify-content: flex-start;
+                padding-left: 10px;
+            }
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        #cursor-dot,
+        #cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: exclusion;
+        }
+
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: white;
+        }
+
+        #cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid white;
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        body.hovering #cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: transparent;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            html, body, a, button, .btn, .menu-item {
+                cursor: none;
+            }
+        }
+        
+        /* Cacher le custom cursor sur mobile explicitement */
+        @media (max-width: 768px) {
+            #cursor-dot, #cursor-outline { display: none; }
+            html, body, a, button, .btn, .menu-item { cursor: auto; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CURSOR -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
+    <!-- NAVIGATION -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Boca <span>Chica</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#reservation">Réserver</a></li>
+                    <li><a href="#reviews">Avis</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home">
+        <div class="hero-content">
+            <h1>Boca Chica</h1>
+            <p>Saveurs d’Italie, élégance française</p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn btn-primary">Voir le menu</a>
+                <a href="#reservation" class="btn btn-secondary">Réserver une table</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- À PROPOS -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Notre Histoire</h2>
+            <p class="section-subtitle">Une escapade méditerranéenne au cœur de Casablanca</p>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Bienvenue chez <strong>Boca Chica</strong>, une destination culinaire où le soleil de l'Italie
+                        rencontre le raffinement de la France. Notre restaurant est conçu comme un lieu de vie, chic
+                        mais accessible, où l'authenticité des produits prime.</p>
+                    <p>Que vous veniez pour un café tranquille le matin, un déjeuner d'affaires ou un dîner aux
+                        chandelles, Boca Chica vous offre une ambiance conviviale et chaleureuse. Notre cuisine célèbre
+                        le mariage des saveurs : plats mijotés, ingrédients frais et touches gastronomiques.</p>
+                </div>
+                <div class="about-image">
+                    <!-- Placeholder Image - Remplacez src par 'boca-chica.jpg' -->
+                    <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?q=80&w=1974&auto=format&fit=crop" alt="Intérieur du restaurant Boca Chica">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section id="menu">
+        <div class="container">
+            <h2 class="section-title">La Carte</h2>
+            <p class="section-subtitle">Une sélection raffinée de plats et boissons</p>
+
+            <!-- MENU NAVIGATION RAPIDE (STICKY) -->
+            <nav class="menu-sticky-nav">
+                <ul>
+                    <li><a href="#breakfast">Petit Déjeuner</a></li>
+                    <li><a href="#starters">Entrées & Starters</a></li>
+                    <li><a href="#mains">Plats & Burgers</a></li>
+                    <li><a href="#desserts">Desserts</a></li>
+                    <li><a href="#drinks">Boissons</a></li>
+                </ul>
+            </nav>
+
+            <div class="menu-container">
+
+                <!-- PETIT DEJEUNER -->
+                <article class="menu-category" id="breakfast">
+                    <h3>Formules Petit Déjeuner</h3>
+                    <!-- Contenu existant... -->
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Chia Bowl</span><span class="item-price">100 DH</span></div>
+                            <div class="item-desc">Graines de chia, lait de coco, vanille, miel, fruits de saisons, dates et amandes + Pain grillé avec son fromage blanc + Boisson chaude au choix + Jus d'orange ou jus de carotte (Supplément Pain sans gluten à la demande 20 dhs)</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Banana Crunch</span><span class="item-price">100 DH</span></div>
+                            <div class="item-desc">Lit de bananes écrasées, cannelle granula & fruits de saisons + Pain grillé avec son fromage blanc + Boisson chaude au choix + Jus d'orange ou jus de carotte</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Beldi</span><span class="item-price">85 DH</span></div>
+                            <div class="item-desc">Oeufs au choix: Au plat, brouillé, omelette au khlii ou omelette au fromage + Assortiment + Corbeille de pain + Boisson chaude au choix + Jus d'orange ou jus de carotte</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Continental</span><span class="item-price">65 DH</span></div>
+                            <div class="item-desc">Panier de viennoiserie + Pain grillé + Assortiment de beurre, confiture et fromage blanc + Boisson chaude au choix + Jus d'orange ou jus de carotte</div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Petit Déjeuner à la carte</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Assiettes de Banana crunch</span><span class="item-price">65 DH</span></div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Oeufs au khlii</span><span class="item-price">35 DH</span></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Tartines</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Tartine Saumon</span><span class="item-price">80 DH</span></div>
+                            <div class="item-desc">Saumon fumé, fromage blanc, guacamole, masculin de salade</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Tartine aux légumes grillés</span><span class="item-price">60 DH</span></div>
+                            <div class="item-desc">Creme d'aubergine, broccoli, échalote, aubergine, poivron, courgette, tomate cerise, roquette, pomme de terre grenaille, graines de courses, sauce pesto</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Tartine de Hummus rose</span><span class="item-price">60 DH</span></div>
+                            <div class="item-desc">Hummus à la betterave, avocat, graines de tournesol, crème balsamique</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- STARTERS -->
+                <article class="menu-category" id="starters">
+                    <h3>Starters</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Quesadillas Poulet truffe</span><span class="item-price">95 DH</span></div>
+                            <div class="item-desc">Supreme de poulet, cheddar, moutarde, guacamole, huile de truffe</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Guacamole Maison</span><span class="item-price">89 DH</span></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Entrées</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Chica Salade</span><span class="item-price">155 DH</span></div>
+                            <div class="item-desc">Mesclun de salade, filet de boeuf, gambas, champignon de Paris, parmesan, tomate cerise, pomme de terre nouvelle, oeuf de caille, vinaigrette au parmesan</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Salade de légumes grillés</span><span class="item-price">110 DH</span></div>
+                            <div class="item-desc">Quinoa mariné, tomate cerise grillé, aubergine grillé, straciatella, avocat grillé</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Caesar poulet</span><span class="item-price">125 DH</span></div>
+                            <div class="item-desc">Poulet grillé, anchois, tomate cerise, croûtons, parmesan et sauce César</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Ceviche de Daurade</span><span class="item-price">125 DH</span></div>
+                            <div class="item-desc">Petits dés de daurade Royale, tomate cerise, radis, oignons, sauce agrume et sauce lèche del tigre</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- MAINS (BURGERS, PASTA, PLATS) -->
+                <article class="menu-category" id="mains">
+                    <h3>Hamburgers</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Chica burger</span><span class="item-price">105 DH</span></div>
+                            <div class="item-desc">Bun sésame, boeuf, cheddar, tomate, pomme, compote de pommes à l'oignon et aux champignons, sauce barbecue maison</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Smashed Burger</span><span class="item-price">125 DH</span></div>
+                            <div class="item-desc">Bun special, double steak de boeuf haché, double cheddar fondu, crunch d'oignons, sauce barbecue</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Cheesy classic</span><span class="item-price">95 DH</span></div>
+                            <div class="item-desc">Bun rustique, boeuf, tomate, oignon, cheddar, iceberg, mayonnaise maison</div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Pâtes</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Spaghetti Bolognaise</span><span class="item-price">90 DH</span></div>
+                            <div class="item-desc">À la viande hachée et sauce tomate</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Spaghetti à l'encre de seiche</span><span class="item-price">135 DH</span></div>
+                            <div class="item-desc">Spaghetti à l'encre de seiche, calamar, sauce à l'huile d'olive ail et herbes, parmesan</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Penne au Poulet</span><span class="item-price">190 DH</span></div>
+                            <div class="item-desc">Penne à la sauce blanche, au poulet, champignon et parmesan</div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Plats</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Filet de boeuf</span><span class="item-price">175 DH</span></div>
+                            <div class="item-desc">Légumes sautés, avec accompagnement frites ou potatoes</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Escalope Milanaise</span><span class="item-price">120 DH</span></div>
+                            <div class="item-desc">Poulet croustillant avec sa petite salade verte et une garniture au choix</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Filet de Daurade grillé</span><span class="item-price">195 DH</span></div>
+                            <div class="item-desc">Filet de daurade grillé avec persillade à la tomate fraîche, câpres, légumes sautés, écrasé de pomme de terre avec olive noir et tomate</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- DESSERTS -->
+                <article class="menu-category" id="desserts">
+                    <h3>Desserts & Glaces</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Tiramisu du Chef</span><span class="item-price">65 DH</span></div>
+                            <div class="item-desc">Tiramisu Maison au café et cacao</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Cheesecake revisité</span><span class="item-price">65 DH</span></div>
+                            <div class="item-desc">Servi avec un coulis de fruits rouges</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Brownie Maison</span><span class="item-price">65 DH</span></div>
+                            <div class="item-desc">Avec sa glace vanille, amande effilée</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Açaï bowl</span><span class="item-price">75 DH</span></div>
+                            <div class="item-desc">Açaï, fruits rouges, banane, raisin sec, granola</div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Crêpes Sucrées</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Nutella banane</span><span class="item-price">50 DH</span></div>
+                            <div class="item-desc">Nutella, banane, amande effilée, boule de glace vanille</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- DRINKS -->
+                <article class="menu-category" id="drinks">
+                    <h3>Boissons</h3>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Milkshakes</span><span class="item-price">65 DH</span></div>
+                            <div class="item-desc">Spéculos, Oreo, Nutella, Fraise tagada...</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Smoothies</span><span class="item-price">55-65 DH</span></div>
+                            <div class="item-desc">The palm, Yogi berry, Fantasy, Coco Mango...</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Cafés</span><span class="item-price">27-45 DH</span></div>
+                            <div class="item-desc">Espresso, Cappuccino, Latte macchiato, Mochaccino...</div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-content">
+                            <div class="menu-header"><span class="item-name">Infusions & Thés</span><span class="item-price">30-40 DH</span></div>
+                            <div class="item-desc">Thé vert, Earl Grey, Infusions...</div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+        <!-- SECTION AVIS CLIENTS -->
+<section id="reviews" style="padding: 4rem 0; background-color: #fff;">
+    <div class="container">
+        <h2 class="section-title">Ce qu'ils en pensent</h2>
+        <p class="section-subtitle">L'avis de nos clients est notre plus grande fierté</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            
+            <!-- AVIS 1 -->
+            <article style="background-color: var(--bg-cream); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="color: var(--accent-gold); margin-bottom: 10px; font-size: 1.2rem;">★★★★★</div>
+                <p style="font-style: italic; color: #555; margin-bottom: 1.5rem; line-height: 1.6;">
+                    "Execellent et service sympathique 😉
+Le lieu est agréable et a une vue imprenable sur le mosquée Hassan 2.
+La vue de nuit est magnifique.
+De passage sur 1 semaine, nous y sommes allés 3 fois."
+                </p>
+                <div style="display: flex; align-items: center; gap: 10px;" >
+                    <!-- Image avatar aléatoire (remplacez par de vraies photos si vous avez) -->
+                    <img src="https://ui-avatars.com/api/?name=Sarah+L&background=C5A065&color=fff" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                    <div>
+                        <strong style="display: block; color: var(--primary-brown);">Sarah L.</strong>
+                        <small style="color: #888;">Visiteur TripAdvisor</small>
+                    </div>
+                </div>
+            </article>
+
+            <!-- AVIS 2 -->
+            <article style="background-color: var(--bg-cream); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="color: var(--accent-gold); margin-bottom: 10px; font-size: 1.2rem;">★★★★</div>
+                <p style="font-style: italic; color: #555; margin-bottom: 1.5rem; line-height: 1.6;">
+                    "Tout était parfait, meilleur filet de boeuf, c’était l’un des meilleurs que j’ai eu depuis très longtemps, et l’endroit est très bien situé."
+                </p>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="https://ui-avatars.com/api/?name=Karim+B&background=556B2F&color=fff" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+
+                        <strong style="display: block; color: var(--primary-brown);">Karim B.</strong>
+                        <small style="color: #888;">Visiteur TripAdvisor</small>
+                    </div>
+                </div>
+            </article>
+
+            <!-- AVIS 3 -->
+            <article style="background-color: var(--bg-cream); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div style="color: var(--accent-gold); margin-bottom: 10px; font-size: 1.2rem;">★★★★★</div>
+                <p style="font-style: italic; color: #555; margin-bottom: 1.5rem; line-height: 1.6;">
+                    "Coin trés calme avec une vue panoramique . Le service de Mohmed Oussi est trés bon service . Pour le menu est agréale . C'est une trés bonne expirience avec vous ."
+                </p>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="https://ui-avatars.com/api/?name=Amira+T&background=4E342E&color=fff" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                    <div>
+                        <strong style="display: block; color: var(--primary-brown);">Amira T.</strong>
+                        <small style="color: #888;">Visitrice Facebook</small>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- BOUTON VOIR TOUS -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="https://www.google.com/maps/place/Boca+Chica/@33.6089382,-7.6530558,17z/data=!4m8!3m7!1s0xda7d254393ae653:0xe7bf22c097783100!8m2!3d33.6089338!4d-7.6504809!9m1!1b1!16s%2Fg%2F11bzx2pc42?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-email" style="font-size: 0.8rem; padding: 10px 20px;">
+                Voir tous nos avis sur Google
+            </a>
+        </div>
+    </div>
+</section>
+    </section>
+
+    <!-- RESERVATION SECTION -->
+    <section id="reservation">
+        <div class="container">
+            <h2 class="section-title">Réserver une table</h2>
+            <p class="section-subtitle">Réservez votre moment chez Boca Chica en quelques clics</p>
+
+            <div class="reservation-container">
+                <form action="https://formspree.io/f/xpqwjqgo" method="POST" class="reservation-form">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nom complet</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="06 XX XX XX XX" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date" class="form-label">Date</label>
+                            <input type="date" id="date" name="date" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time" class="form-label">Heure</label>
+                            <input type="time" id="time" name="time" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guests" class="form-label">Nombre de personnes</label>
+                        <select id="guests" name="guests" class="form-select" required>
+                            <option value="1">1 personne</option>
+                            <option value="2" selected>2 personnes</option>
+                            <option value="3">3 personnes</option>
+                            <option value="4">4 personnes</option>
+                            <option value="5">5 personnes</option>
+                            <option value="6+">6 personnes ou plus</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message (Optionnel)</label>
+                        <textarea id="message" name="message" rows="3" class="form-textarea"
+                            placeholder="Anniversaire, terrasse, enfants..."></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                        <button type="button" onclick="sendReservation(event)" class="btn btn-primary">
+                            Réserver via WhatsApp
+                        </button>
+                        <button type="submit" class="btn btn-email">
+                            Envoyer par Email
+                        </button>
+                    </div>
+
+                    <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">
+                        <em>Choisissez votre moyen de communication préféré.</em>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact & Accès</h2>
+            <p class="section-subtitle">Nous serons ravis de vous accueillir</p>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-content">
+                            <h4>Adresse</h4>
+                            <p>Rue Oualidia<br>20054 Casablanca, Morocco</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📞</div>
+                        <div class="info-content">
+                            <h4>Téléphone</h4>
+                            <p><a href="tel:+212681216262">06 81 21 62 62</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🕒</div>
+                        <div class="info-content">
+                            <h4>Horaires</h4>
+                            <p>Ouvert tous les jours<br>de 09h00 à 22h30</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <iframe title="Carte Boca Chica Casablanca"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13291.433907981645!2d-7.6503873!3d33.6089763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d254393ae653%3A0xe7bf22c097783100!2sBoca%20Chica!5e0!3m2!1sfr!2sma!4v1767518983276!5m2!1sfr!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+     <!-- SECTION ÉVÉNEMENTS -->
+ <section style="background-color: var(--primary-brown); padding: 4rem 0; color: var(--bg-cream);">
+    <div class="container">
+        <h2 class="section-title" style="color: var(--bg-white); border-bottom-color: var(--accent-gold);">Événements & Actualités</h2>
+        <p class="section-subtitle" style="color: #ddd;">Ne manquez rien de la vie chez Boca Chica</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            
+            <!-- Événement 1 -->
+            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
+                <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.3rem;">Soirée Jazz Live</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">Tous les vendredis soirs à partir de 20h00.</p>
+                <p style="font-style: italic;">Profitez de nos cocktails signatures accompagnés de musique jazz live.</p>
+            </div>
+
+            <!-- Événement 2 -->
+            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
+                <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.3rem;">Brunch du Dimanche</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">De 10h00 à 15h00.</p>
+                <p style="font-style: italic;">Formule illimitée avec jus frais et viennoiseries maison.</p>
+            </div>
+
+             <!-- Événement 3 -->
+             <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
+                <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.3rem;">Happy Hour</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">Du Lundi au Jeudi, 17h00 - 19h00.</p>
+                <p style="font-style: italic;">-50% sur tous les cocktails et mocktails de la carte.</p>
+            </div>
+
+        </div>
+    </div>
+ </section>
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Boca Chica</div>
+            <p class="footer-text">© 2023 Boca Chica. Saveurs d’Italie, élégance française.</p>
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+    <!-- MOBILE ACTION BAR -->
+    <div class="mobile-action-bar">
+        <a href="tel:+212681216262" class="btn-call">📞 Appeler</a>
+        <a href="#reservation" class="btn-primary" style="color: white; border:none;">Réserver</a>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        function sendReservation(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const guests = document.getElementById('guests').value;
+            const message = document.getElementById('message').value;
+
+            const phoneNumber = "212681216262";
+
+            let text = `Bonjour Boca Chica, je souhaite réserver une table.%0A%0A`;
+            text += `📅 Date : ${date}%0A`;
+            text += `⏰ Heure : ${time}%0A`;
+            text += `👥 Personnes : ${guests}%0A`;
+            text += `👤 Nom : ${name}%0A`;
+            text += `📱 Téléphone : ${phone}%0A`;
+            if (message) {
+                text += `📝 Note : ${message}`;
+            }
+
+            window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
+        }
+    </script>
+    
+    <script>
+        // --- 1. CUSTOM CURSOR & INTERACTIVITY ---
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+
+        if (window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', function (e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+
+            const interactives = document.querySelectorAll('a, button, .btn, .menu-item, input, textarea, select');
+            interactives.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
+        }
+
+        // --- 2. HEADER SCROLL EFFECT ---
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- 3. MENU ACTIVE STATE HIGHLIGHTER ---
+        // Détecte quelle section du menu est visible pour surligner le lien dans la nav
+        const sections = document.querySelectorAll('.menu-category');
+        const navLinks = document.querySelectorAll('.menu-sticky-nav li a');
+
+        const menuObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Retirer active de tous
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    // Ajouter active au bon lien
+                    const id = entry.target.getAttribute('id');
+                    const activeLink = document.querySelector(`.menu-sticky-nav li a[href="#${id}"]`);
+                    if (activeLink) activeLink.classList.add('active');
+                }
+            });
+        }, { threshold: 0.3 }); // Déclenche quand 30% de la section est visible
+
+        sections.forEach(section => {
+            if(section.id) menuObserver.observe(section);
+        });
+
+        // --- 4. BACK TO TOP VISIBILITY ---
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // --- 5. FADE IN ON SCROLL ---
+        const fadeObserverOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, fadeObserverOptions);
+
+        document.querySelectorAll('.menu-category, .section-title, .about-text, .about-image, .reservation-container').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            fadeObserver.observe(el);
+        });
+    </script>
+</body>
+
+</html>
