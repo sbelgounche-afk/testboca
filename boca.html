@@ -51,7 +51,6 @@
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
-            /* Padding bottom for mobile sticky bar */
             padding-bottom: 60px; 
         }
 
@@ -84,7 +83,7 @@
         /* --- COMPOSANTS --- */
         .container {
             width: 95%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 var(--spacing-sm);
         }
@@ -180,7 +179,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Style ajouté pour l'état scrolled */
         header.scrolled {
             padding: 10px 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -231,16 +229,31 @@
         .nav-links a:hover::after {
             width: 100%;
         }
+        
+        /* Bouton Nav */
+        .nav-links .btn {
+            padding: 8px 20px;
+            margin-left: 10px;
+            display: inline-block;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links .btn {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+                text-align: center;
+            }
+        }
 
         /* --- HERO SECTION --- */
         #home {
-            height: 85vh; /* Un peu plus haut pour l'impact */
+            height: 85vh;
             min-height: 500px;
-            /* Placeholder image - Remplacez par votre image locale */
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Effet Parallaxe */
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -303,27 +316,22 @@
             transform: scale(1.02);
         }
 
-        /* --- MENU NAV (NOUVEAU) --- */
-        /* Une barre de navigation rapide pour le menu */
+        /* --- MENU NAV --- */
         .menu-sticky-nav {
             position: sticky;
             top: var(--header-height);
             z-index: 900;
             background: var(--bg-white);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             border-top: 2px solid var(--primary-green);
             overflow-x: auto;
             white-space: nowrap;
-            -webkit-overflow-scrolling: touch; /* Scroll fluide iOS */
+            -webkit-overflow-scrolling: touch;
         }
         
-        .menu-sticky-nav::-webkit-scrollbar {
-            height: 4px;
-        }
-        .menu-sticky-nav::-webkit-scrollbar-thumb {
-            background: var(--primary-green);
-        }
+        .menu-sticky-nav::-webkit-scrollbar { height: 4px; }
+        .menu-sticky-nav::-webkit-scrollbar-thumb { background: var(--primary-green); }
 
         .menu-sticky-nav ul {
             display: flex;
@@ -347,24 +355,69 @@
             border-bottom: 3px solid var(--primary-green);
         }
 
-        /* --- MENU SECTION --- */
+        /* --- NOUVELLE MISE EN PAGE MENU (3 COLONNES) --- */
         #menu {
             padding-bottom: var(--spacing-lg);
             background-color: var(--bg-cream);
         }
         
-        /* Scroll margin pour compenser le header sticky quand on clique sur un lien */
         article {
             scroll-margin-top: calc(var(--header-height) + 60px); 
+            margin-bottom: 4rem; /* Espace entre les grosses catégories */
         }
 
-        .menu-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            align-items: stretch;
+        /* GRID LAYOUT DESKTOP (>1024px) */
+        @media (min-width: 1024px) {
+            .menu-category {
+                display: grid;
+                grid-template-columns: 1fr 2fr 1fr;
+                gap: 2rem;
+                align-items: start;
+                background: transparent;
+                box-shadow: none;
+                border: none;
+            }
+
+            .menu-text-content {
+                background: linear-gradient(180deg, var(--bg-white), #ffffff);
+                padding: 2.5rem;
+                border-radius: 10px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+                border-left: 6px solid var(--primary-green);
+            }
+
+            .menu-side-image {
+                height: 100%;
+                min-height: 500px;
+                position: sticky;
+                top: 120px;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            
+            .menu-category:hover .menu-side-image img {
+                transform: scale(1.03);
+            }
+
+            .menu-side-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.8s ease;
+            }
+            
+            /* H3 adjustment for grid */
+            .menu-text-content h3 {
+                margin-top: 0;
+            }
         }
 
+        /* LAYOUT MOBILE (Par défaut) */
+        .menu-text-content {
+            width: 100%;
+        }
+        
         .menu-category {
             background: linear-gradient(180deg, var(--bg-white), #ffffff);
             padding: 2rem;
@@ -374,19 +427,17 @@
             transition: transform 0.3s ease;
         }
 
-        .menu-category:hover {
-            transform: translateY(-3px);
+        /* Cacher les images latérales sur tablette/mobile */
+        @media (max-width: 1023px) {
+            .menu-side-image {
+                display: none;
+            }
+            .menu-category {
+                display: block;
+            }
         }
 
-        .menu-category h3 {
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-brown);
-            text-align: left;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
+        /* --- STYLE DES ITEMS DE MENU --- */
         .menu-item {
             display: flex;
             flex-wrap: wrap;
@@ -421,7 +472,6 @@
             padding-right: 10px;
         }
 
-        /* Dotted Leader Effect */
         .menu-header::after {
             content: '';
             position: absolute;
@@ -449,6 +499,31 @@
             color: #777;
             font-style: italic;
             line-height: 1.4;
+        }
+
+        /* --- MODIFICATION DES H3 (TITRES DE MENU) --- */
+        .menu-text-content h3 {
+            font-size: 2.2rem; /* Plus grand (au lieu de 1.6rem) */
+            text-align: center; /* Centré (au lieu de left) */
+            margin-bottom: 2.5rem; /* Plus d'espace après */
+            margin-top: 0;
+            color: var(--primary-brown);
+            padding-bottom: 0; /* On gère la ligne avec ::after */
+            text-transform: uppercase; /* Pour le côté chic/élégant */
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        /* Ligne décorative dorée sous le titre */
+        .menu-text-content h3::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-gold);
+            margin: 15px auto 0; /* Centré automatiquement */
+            border-radius: 2px;
         }
 
         /* --- RESERVATION SECTION --- */
@@ -567,7 +642,7 @@
             margin-bottom: var(--spacing-xs);
         }
 
-        /* --- MOBILE ACTION BAR (STICKY BOTTOM) --- */
+        /* --- MOBILE ACTION BAR --- */
         .mobile-action-bar {
             display: none;
             position: fixed;
@@ -633,113 +708,30 @@
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .mobile-action-bar {
-                display: flex;
-            }
-            
-            /* Ajustement du bouton back to top pour ne pas être caché par la barre mobile */
-            #back-to-top {
-                bottom: 80px; 
-            }
-
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero-content p {
-                font-size: 1.2rem;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 10px;
-                padding: 10px 0;
-            }
-            
-            /* Cacher le menu de navigation normal sur mobile car on a la sticky bar */
-            /* Ou le laisser en hamburger si vous préférez, ici je le laisse compact */
-            .nav-links {
-                gap: 15px;
-                font-size: 0.85rem;
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-
-            .about-grid,
-            .contact-wrapper,
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .about-image {
-                order: -1;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                width: 100%;
-                gap: 15px;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .reservation-container {
-                padding: 2rem 1.5rem;
-            }
-            
-            .menu-sticky-nav ul {
-                justify-content: flex-start;
-                padding-left: 10px;
-            }
+            .mobile-action-bar { display: flex; }
+            #back-to-top { bottom: 80px; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content p { font-size: 1.2rem; }
+            nav { flex-direction: column; gap: 10px; padding: 10px 0; }
+            .nav-links { gap: 15px; font-size: 0.85rem; width: 100%; justify-content: center; flex-wrap: wrap; }
+            .about-grid, .contact-wrapper, .form-row { grid-template-columns: 1fr; }
+            .about-image { order: -1; }
+            .hero-buttons { flex-direction: column; width: 100%; gap: 15px; }
+            .btn { width: 100%; }
+            .reservation-container { padding: 2rem 1.5rem; }
+            .menu-sticky-nav ul { justify-content: flex-start; padding-left: 10px; }
         }
 
         /* --- CUSTOM CURSOR --- */
-        #cursor-dot,
-        #cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: exclusion;
+        #cursor-dot, #cursor-outline {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; pointer-events: none; z-index: 9999; mix-blend-mode: exclusion;
         }
-
-        #cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: white;
-        }
-
-        #cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid white;
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-
-        body.hovering #cursor-outline {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-color: transparent;
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            html, body, a, button, .btn, .menu-item {
-                cursor: none;
-            }
-        }
-        
-        /* Cacher le custom cursor sur mobile explicitement */
-        @media (max-width: 768px) {
-            #cursor-dot, #cursor-outline { display: none; }
-            html, body, a, button, .btn, .menu-item { cursor: auto; }
-        }
+        #cursor-dot { width: 8px; height: 8px; background-color: white; }
+        #cursor-outline { width: 40px; height: 40px; border: 1px solid white; transition: width 0.2s, height 0.2s, background-color 0.2s; }
+        body.hovering #cursor-outline { width: 60px; height: 60px; background-color: rgba(255, 255, 255, 0.2); border-color: transparent; }
+        @media (hover: hover) and (pointer: fine) { html, body, a, button, .btn, .menu-item { cursor: none; } }
+        @media (max-width: 768px) { #cursor-dot, #cursor-outline { display: none; } html, body, a, button, .btn, .menu-item { cursor: auto; } }
     </style>
 </head>
 
@@ -758,7 +750,6 @@
                     <li><a href="#about">À propos</a></li>
                     <li><a href="#menu">Menu</a></li>
                     <li><a href="#reservation">Réserver</a></li>
-                    <li><a href="#reviews">Avis</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -784,16 +775,11 @@
             <p class="section-subtitle">Une escapade méditerranéenne au cœur de Casablanca</p>
             <div class="about-grid">
                 <div class="about-text">
-                    <p>Bienvenue chez <strong>Boca Chica</strong>, une destination culinaire où le soleil de l'Italie
-                        rencontre le raffinement de la France. Notre restaurant est conçu comme un lieu de vie, chic
-                        mais accessible, où l'authenticité des produits prime.</p>
-                    <p>Que vous veniez pour un café tranquille le matin, un déjeuner d'affaires ou un dîner aux
-                        chandelles, Boca Chica vous offre une ambiance conviviale et chaleureuse. Notre cuisine célèbre
-                        le mariage des saveurs : plats mijotés, ingrédients frais et touches gastronomiques.</p>
+                    <p>Bienvenue chez <strong>Boca Chica</strong>, une destination culinaire où le soleil de l'Italie rencontre le raffinement de la France. Notre restaurant est conçu comme un lieu de vie, chic mais accessible, où l'authenticité des produits prime.</p>
+                    <p>Que vous veniez pour un café tranquille le matin, un déjeuner d'affaires ou un dîner aux chandelles, Boca Chica vous offre une ambiance conviviale et chaleureuse. Notre cuisine célèbre le mariage des saveurs : plats mijotés, ingrédients frais et touches gastronomiques.</p>
                 </div>
                 <div class="about-image">
-                    <!-- Placeholder Image - Remplacez src par 'boca-chica.jpg' -->
-                    <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?q=80&w=1974&auto=format&fit=crop" alt="Intérieur du restaurant Boca Chica">
+                    <img src="WhatsApp Image 2026-01-03 at 13.34.50.jpeg" alt="Intérieur du restaurant Boca Chica">
                 </div>
             </div>
         </div>
@@ -805,7 +791,6 @@
             <h2 class="section-title">La Carte</h2>
             <p class="section-subtitle">Une sélection raffinée de plats et boissons</p>
 
-            <!-- MENU NAVIGATION RAPIDE (STICKY) -->
             <nav class="menu-sticky-nav">
                 <ul>
                     <li><a href="#breakfast">Petit Déjeuner</a></li>
@@ -818,320 +803,330 @@
 
             <div class="menu-container">
 
-                <!-- PETIT DEJEUNER -->
+                <!-- PETIT DEJEUNER & TARTINES -->
                 <article class="menu-category" id="breakfast">
-                    <h3>Formules Petit Déjeuner</h3>
-                    <!-- Contenu existant... -->
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Chia Bowl</span><span class="item-price">100 DH</span></div>
-                            <div class="item-desc">Graines de chia, lait de coco, vanille, miel, fruits de saisons, dates et amandes + Pain grillé avec son fromage blanc + Boisson chaude au choix + Jus d'orange ou jus de carotte (Supplément Pain sans gluten à la demande 20 dhs)</div>
+                    <div class="menu-side-image left">
+                        <img src="WhatsApp Image 2026-01-04 at 13.48.15.jpeg" alt="Petit déjeuner gourmand">
+                    </div>
+
+                    <div class="menu-text-content">
+                        <h3>Formules Petit Déjeuner</h3>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <div class="menu-header"><span class="item-name">Chia Bowl</span><span class="item-price">100 DH</span></div>
+                                <div class="item-desc">Graines de chia, lait de coco, vanille, miel, fruits de saisons, dates et amandes + Pain grillé avec son fromage blanc + Boisson chaude au choix + Jus d'orange ou jus de carotte (Supplément Pain sans gluten à la demande 20 dhs)</div>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <div class="menu-header"><span class="item-name">Banana Crunch</span><span class="item-price">100 DH</span></div>
+                                <div class="item-desc">Lit de bananes écrasées, cannelle granula & fruits de saisons + Pain grillé avec son fromage blanc + Boisson chaude au choix + Jus d'orange ou jus de carotte (Supplément Pain sans gluten à la demande 20 dhs)</div>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <div class="menu-header"><span class="item-name">Combo Costaud</span><span class="item-price">100 DH</span></div>
+                                <div class="item-desc">Omelette champignon fromage ou Oeuf au khlii + Pain grillé avec sa guacamole maison + Verrine de fruit de saison ou Verrine de fromage frais avec son coulis de mangue + Boisson chaude au choix + Jus d'orange ou jus de carotte (Supplément Pain sans gluten à la demande 20 dhs)</div>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <div class="menu-header"><span class="item-name">Combo Tartine</span><span class="item-price">115 DH</span></div>
+                                <div class="item-desc">Tartine au saumon fumé + Verrine au choix: Salade de fruit, fromage blanc et son coulis de mangue, avocat fruits secs ou verrine de chia + Boisson chaude au choix + Jus d'orange ou jus de carotte</div>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <div class="menu-header"><span class="item-name">Beldi</span><span class="item-price">85 DH</span></div>
+                                <div class="item-desc">Oeufs au choix: Au plat, brouillé, omelette au khlii ou omelette au fromage + Assortiment (Miel, beurre fermier, huile d'olive, fromage blanc, amlou, olive noire) + Corbeille de pain + Boisson chaude au choix + Jus d'orange ou jus de carotte</div>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="menu-item-content">
+                                <div class="menu-header"><span class="item-name">Continental</span><span class="item-price">65 DH</span></div>
+                                <div class="item-desc">Panier de viennoiserie + Pain grillé + Assortiment de beurre, confiture et fromage blanc + Boisson chaude au choix + Jus d'orange ou jus de carotte</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Banana Crunch</span><span class="item-price">100 DH</span></div>
-                            <div class="item-desc">Lit de bananes écrasées, cannelle granula & fruits de saisons + Pain grillé avec son fromage blanc + Boisson chaude au choix + Jus d'orange ou jus de carotte</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Beldi</span><span class="item-price">85 DH</span></div>
-                            <div class="item-desc">Oeufs au choix: Au plat, brouillé, omelette au khlii ou omelette au fromage + Assortiment + Corbeille de pain + Boisson chaude au choix + Jus d'orange ou jus de carotte</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Continental</span><span class="item-price">65 DH</span></div>
-                            <div class="item-desc">Panier de viennoiserie + Pain grillé + Assortiment de beurre, confiture et fromage blanc + Boisson chaude au choix + Jus d'orange ou jus de carotte</div>
-                        </div>
+
+                    <div class="menu-side-image right">
+                        <img src="WhatsApp Image 2026-01-04 at 13.51.21.jpeg" alt="Café artisanal">
                     </div>
                 </article>
 
                 <article class="menu-category">
                     <h3>Petit Déjeuner à la carte</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Assiettes de Banana crunch</span><span class="item-price">65 DH</span></div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Oeufs au khlii</span><span class="item-price">35 DH</span></div>
-                        </div>
-                    </div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Assiettes de Banana crunch</span><span class="item-price">65 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Assiette de Chia</span><span class="item-price">70 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Salade de fruits de saison</span><span class="item-price">30 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Omelette nature ou oeuf brouillés</span><span class="item-price">20 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Omelette au fromage</span><span class="item-price">30 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Omelette à la tomate, oignon et ail</span><span class="item-price">30 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Omelette Champignon fromage</span><span class="item-price">40 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Oeufs au khlii</span><span class="item-price">35 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Corbeille de 3 mini viennoiseries</span><span class="item-price">20 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Pain grillé</span><span class="item-price">20 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">2 Tartines de fromage blanc à l'origan</span><span class="item-price">20 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">2 tranches de pain sans Gluten au guacamole</span><span class="item-price">35 DH</span></div></div></div>
                 </article>
 
                 <article class="menu-category">
                     <h3>Tartines</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Tartine Saumon</span><span class="item-price">80 DH</span></div>
-                            <div class="item-desc">Saumon fumé, fromage blanc, guacamole, masculin de salade</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Tartine aux légumes grillés</span><span class="item-price">60 DH</span></div>
-                            <div class="item-desc">Creme d'aubergine, broccoli, échalote, aubergine, poivron, courgette, tomate cerise, roquette, pomme de terre grenaille, graines de courses, sauce pesto</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Tartine de Hummus rose</span><span class="item-price">60 DH</span></div>
-                            <div class="item-desc">Hummus à la betterave, avocat, graines de tournesol, crème balsamique</div>
-                        </div>
-                    </div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Tartine Saumon</span><span class="item-price">80 DH</span></div><div class="item-desc">Saumon fumé, fromage blanc, guacamole, masculin de salade</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Tartine aux légumes grillés</span><span class="item-price">60 DH</span></div><div class="item-desc">Creme d'aubergine, broccoli, échalote, aubergine, poivron, courgette, tomate cerise, roquette, pomme de terre grenaille, graines de courses, sauce pesto</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Tartine de Hummus rose</span><span class="item-price">60 DH</span></div><div class="item-desc">Hummus à la betterave, avocat, graines de tournesol, crème balsamique</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Tartines Oeuf au plat</span><span class="item-price">60 DH</span></div><div class="item-desc">Guacamole maison, fromage blanc, oeufs au plat, salade, tomate cerise, crème balsamique</div></div></div>
                 </article>
 
                 <!-- STARTERS -->
                 <article class="menu-category" id="starters">
-                    <h3>Starters</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Quesadillas Poulet truffe</span><span class="item-price">95 DH</span></div>
-                            <div class="item-desc">Supreme de poulet, cheddar, moutarde, guacamole, huile de truffe</div>
-                        </div>
+                    <div class="menu-side-image left">
+                        <img src="WhatsApp Image 2026-01-04 at 14.20.36.jpeg" alt="Entrées">
                     </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Guacamole Maison</span><span class="item-price">89 DH</span></div>
-                        </div>
+
+                    <div class="menu-text-content">
+                        <h3>Starters</h3>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Quesadillas Poulet truffe</span><span class="item-price">95 DH</span></div><div class="item-desc">Supreme de poulet, cheddar, moutarde, guacamole, huile de truffe</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Guacamole Maison</span><span class="item-price">89 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Cheese sticks</span><span class="item-price">65 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Doigts de poulet</span><span class="item-price">65 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Croquettes de Cèpes</span><span class="item-price">55 DH</span></div></div></div>
+                    </div>
+                    
+                    <div class="menu-side-image right">
+                         <img src="WhatsApp Image 2026-01-04 at 13.51.22.jpeg" alt="Salade">
                     </div>
                 </article>
 
                 <article class="menu-category">
                     <h3>Entrées</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Chica Salade</span><span class="item-price">155 DH</span></div>
-                            <div class="item-desc">Mesclun de salade, filet de boeuf, gambas, champignon de Paris, parmesan, tomate cerise, pomme de terre nouvelle, oeuf de caille, vinaigrette au parmesan</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Salade de légumes grillés</span><span class="item-price">110 DH</span></div>
-                            <div class="item-desc">Quinoa mariné, tomate cerise grillé, aubergine grillé, straciatella, avocat grillé</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Caesar poulet</span><span class="item-price">125 DH</span></div>
-                            <div class="item-desc">Poulet grillé, anchois, tomate cerise, croûtons, parmesan et sauce César</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Ceviche de Daurade</span><span class="item-price">125 DH</span></div>
-                            <div class="item-desc">Petits dés de daurade Royale, tomate cerise, radis, oignons, sauce agrume et sauce lèche del tigre</div>
-                        </div>
-                    </div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Chica Salade</span><span class="item-price">155 DH</span></div><div class="item-desc">Mesclun de salade, filet de boeuf, gambas, champignon de Paris, parmesan, tomate cerise, pomme de terre nouvelle, oeuf de caille, vinaigrette au parmesan</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Salade de légumes grillés</span><span class="item-price">110 DH</span></div><div class="item-desc">Quinoa mariné, tomate cerise grillé, aubergine grillé, straciatella, avocat grillé</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Caesar poulet</span><span class="item-price">125 DH</span></div><div class="item-desc">Poulet grillé, anchois, tomate cerise, croûtons, parmesan et sauce César</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Salade Grecque</span><span class="item-price">110 DH</span></div><div class="item-desc">Tomates, concombre, oignon, feta et la vinaigrette du chef</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Aloha Bowl</span><span class="item-price">165 DH</span></div><div class="item-desc">Riz, kiwi, ananas, tomate cerise, pomme verte, fruits tropicaux, concombre, saumon fumé, carotte, gambas sautées, fruits rouges, hummus, sauce Teryaki</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">California Bowl</span><span class="item-price">135 DH</span></div><div class="item-desc">Riz ou Quinoa, poulet tracé, hummus rose, chou rouge, tomate cerise, edamame, concombre, carotte, wakame, crunch aux graines, sauce à la mangue, pain toasté</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Ceviche de Daurade</span><span class="item-price">125 DH</span></div><div class="item-desc">Petits dés de daurade Royale, tomate cerise, radis, oignons, sauce agrume et sauce lèche del tigre</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Pizetta Saumon</span><span class="item-price">125 DH</span></div><div class="item-desc">Fines tranches de saumon gravelax à la betterave, huile de truffe noir sur pâte croustillante</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Pizetta Champignon</span><span class="item-price">115 DH</span></div><div class="item-desc">Poêlée de champignon à la persillade, parmesan sur pâte croustillante</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Feta Roti</span><span class="item-price">89 DH</span></div><div class="item-desc">Au four, sauce napolitaine, olive noir, basilic, tomate cerise, pain grillé</div></div></div>
                 </article>
 
-                <!-- MAINS (BURGERS, PASTA, PLATS) -->
+                <!-- MAINS -->
                 <article class="menu-category" id="mains">
-                    <h3>Hamburgers</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Chica burger</span><span class="item-price">105 DH</span></div>
-                            <div class="item-desc">Bun sésame, boeuf, cheddar, tomate, pomme, compote de pommes à l'oignon et aux champignons, sauce barbecue maison</div>
-                        </div>
+                    <div class="menu-side-image left">
+                        <img src="WhatsApp Image 2026-01-03 at 20.27.08.jpeg" alt="Hamburger">
                     </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Smashed Burger</span><span class="item-price">125 DH</span></div>
-                            <div class="item-desc">Bun special, double steak de boeuf haché, double cheddar fondu, crunch d'oignons, sauce barbecue</div>
-                        </div>
+                    <div class="menu-text-content">
+                        <h3>Hamburgers</h3>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Chica burger</span><span class="item-price">105 DH</span></div><div class="item-desc">Bun sésame, boeuf, cheddar, tomate, pomme, compote de pommes à l'oignon et aux champignons, sauce barbecue maison</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Smashed Burger</span><span class="item-price">125 DH</span></div><div class="item-desc">Bun special, double steak de boeuf haché, double cheddar fondu, crunch d'oignons, sauce barbecue</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Caesar poulet</span><span class="item-price">95 DH</span></div><div class="item-desc">Bun rustique, poulet croustillant pané aux cornflakes, parmesan, iceberg, tomate, sauce caesar</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Cheesy classic</span><span class="item-price">95 DH</span></div><div class="item-desc">Bun rustique, boeuf, tomate, oignon, cheddar, iceberg, mayonnaise maison</div></div></div>
                     </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Cheesy classic</span><span class="item-price">95 DH</span></div>
-                            <div class="item-desc">Bun rustique, boeuf, tomate, oignon, cheddar, iceberg, mayonnaise maison</div>
-                        </div>
+                    <div class="menu-side-image right">
+                        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2070&auto=format&fit=crop" alt="Pâtes">
                     </div>
                 </article>
 
                 <article class="menu-category">
                     <h3>Pâtes</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Spaghetti Bolognaise</span><span class="item-price">90 DH</span></div>
-                            <div class="item-desc">À la viande hachée et sauce tomate</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Spaghetti à l'encre de seiche</span><span class="item-price">135 DH</span></div>
-                            <div class="item-desc">Spaghetti à l'encre de seiche, calamar, sauce à l'huile d'olive ail et herbes, parmesan</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Penne au Poulet</span><span class="item-price">190 DH</span></div>
-                            <div class="item-desc">Penne à la sauce blanche, au poulet, champignon et parmesan</div>
-                        </div>
-                    </div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Spaghetti Bolognaise</span><span class="item-price">90 DH</span></div><div class="item-desc">À la viande hachée et sauce tomate</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Spaghetti à l'encre de seiche</span><span class="item-price">135 DH</span></div><div class="item-desc">Spaghetti à l'encre de seiche, calamar, sauce à l'huile d'olive ail et herbes, parmesan</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Spaghetti au Saumon fumé</span><span class="item-price">135 DH</span></div><div class="item-desc">Spaghetti rose, quenelles à la crème fraiche et aneth</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Penne au Poulet</span><span class="item-price">190 DH</span></div><div class="item-desc">Penne à la sauce blanche, au poulet, champignon et parmesan</div></div></div>
                 </article>
 
                 <article class="menu-category">
                     <h3>Plats</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Filet de boeuf</span><span class="item-price">175 DH</span></div>
-                            <div class="item-desc">Légumes sautés, avec accompagnement frites ou potatoes</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Escalope Milanaise</span><span class="item-price">120 DH</span></div>
-                            <div class="item-desc">Poulet croustillant avec sa petite salade verte et une garniture au choix</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Filet de Daurade grillé</span><span class="item-price">195 DH</span></div>
-                            <div class="item-desc">Filet de daurade grillé avec persillade à la tomate fraîche, câpres, légumes sautés, écrasé de pomme de terre avec olive noir et tomate</div>
-                        </div>
-                    </div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Filet de boeuf</span><span class="item-price">175 DH</span></div><div class="item-desc">Légumes sautés, avec accompagnement frites ou potatoes</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Escalope Milanaise</span><span class="item-price">120 DH</span></div><div class="item-desc">Poulet croustillant avec sa petite salade verte et une garniture au choix</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Calamar à la provençale</span><span class="item-price">155 DH</span></div><div class="item-desc">Avec sa sauce tomate et ses légumes grillés</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Filet de Daurade grillé</span><span class="item-price">195 DH</span></div><div class="item-desc">Filet de daurade grillé avec persillade à la tomate fraîche, câpres, légumes sautés, écrasé de pomme de terre avec olive noir et tomate</div></div></div>
+                </article>
+
+                <!-- MENU ENFANT -->
+                <article class="menu-category">
+                    <h3>Menu Enfant</h3>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Cheesy classic</span><span class="item-price">85 DH</span></div><div class="item-desc">Avec frites ou potatoes, une boisson Soft et une boule de glace</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">César burger</span><span class="item-price">85 DH</span></div><div class="item-desc">Avec frites ou potatoes, une boisson Soft et une boule de glace</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Spaghetti Bolognaise</span><span class="item-price">85 DH</span></div><div class="item-desc">Avec viande hachée et sauce tomate, une boisson Soft et une boule de glace</div></div></div>
                 </article>
 
                 <!-- DESSERTS -->
                 <article class="menu-category" id="desserts">
-                    <h3>Desserts & Glaces</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Tiramisu du Chef</span><span class="item-price">65 DH</span></div>
-                            <div class="item-desc">Tiramisu Maison au café et cacao</div>
-                        </div>
+                    <div class="menu-side-image left">
+                        <img src="WhatsApp Image 2026-01-04 at 14.26.28.jpeg" alt="Tiramisu">
                     </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Cheesecake revisité</span><span class="item-price">65 DH</span></div>
-                            <div class="item-desc">Servi avec un coulis de fruits rouges</div>
-                        </div>
+                    <div class="menu-text-content">
+                        <h3>Desserts</h3>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Tiramisu du Chef</span><span class="item-price">65 DH</span></div><div class="item-desc">Tiramisu Maison au café et cacao</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Cheesecake revisité</span><span class="item-price">65 DH</span></div><div class="item-desc">Servi avec un coulis de fruits rouges</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Tarte au citron en verrine</span><span class="item-price">65 DH</span></div><div class="item-desc">Avec son crumble</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Brownie Maison</span><span class="item-price">65 DH</span></div><div class="item-desc">Avec sa glace vanille, amande effilée</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Fondant au chocolat</span><span class="item-price">65 DH</span></div><div class="item-desc">Avec sa glace vanille, amande effilée</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Coupe caramelita</span><span class="item-price">65 DH</span></div><div class="item-desc">Biscuit cookies, glace cookies, glace caramel beurre salé, chantilly</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Coupe chocolat</span><span class="item-price">65 DH</span></div><div class="item-desc">Biscuit cookies, glace chocolat, glace cookies, chantilly</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Assortiment de glaces</span><span class="item-price">65 DH</span></div><div class="item-desc">Trois boules au choix (Vanille, chocolat, cookies, fraise, passion, caramel beurre salé)</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Carrot cake revisité</span><span class="item-price">65 DH</span></div><div class="item-desc">Carottes râpées, banane, datte, lait de soja, cannelle, graines de chia</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Matcha love</span><span class="item-price">80 DH</span></div><div class="item-desc">Thé matcha, épinard, lait de soja, banane</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Cucu berry</span><span class="item-price">75 DH</span></div><div class="item-desc">Fruits rouges, concombre, menthe, lait de soja, banane</div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Açaï bowl</span><span class="item-price">75 DH</span></div><div class="item-desc">Açaï, fruits rouges, banane, raisin sec, granola</div></div></div>
                     </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Brownie Maison</span><span class="item-price">65 DH</span></div>
-                            <div class="item-desc">Avec sa glace vanille, amande effilée</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Açaï bowl</span><span class="item-price">75 DH</span></div>
-                            <div class="item-desc">Açaï, fruits rouges, banane, raisin sec, granola</div>
-                        </div>
+                    <div class="menu-side-image right">
+                        <img src="WhatsApp Image 2026-01-04 at 14.30.24.jpeg" alt="Glaces">
                     </div>
                 </article>
 
                 <article class="menu-category">
                     <h3>Crêpes Sucrées</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Nutella banane</span><span class="item-price">50 DH</span></div>
-                            <div class="item-desc">Nutella, banane, amande effilée, boule de glace vanille</div>
-                        </div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Caramel</span><span class="item-price">50 DH</span></div><div class="item-desc">Caramel, amande effilée, boule de glace vanille</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Nutella</span><span class="item-price">50 DH</span></div><div class="item-desc">Nutella, amande effilée, boule de glace vanille</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Nutella banane</span><span class="item-price">50 DH</span></div><div class="item-desc">Nutella, banane, amande effilée, boule de glace vanille</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Brownie</span><span class="item-price">50 DH</span></div><div class="item-desc">Avec nappage au choix caramel ou Nutella, amande effilée, boule de glace vanille</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Amlou</span><span class="item-price">50 DH</span></div><div class="item-desc">Amlou, amande effilée, boule de glace vanille</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Brownie Amlou</span><span class="item-price">50 DH</span></div><div class="item-desc">Brownie, Amlou, amande effilée, boule de glace vanille</div></div></div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Milkshakes</h3>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Spéculos</span><span class="item-price">65 DH</span></div><div class="item-desc">Boule de glace vanille et caramel, biscuit spéculos, chantilly</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Oreo</span><span class="item-price">65 DH</span></div><div class="item-desc">Boule de glace vanille, biscuit oreo, chantilly</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Nutella</span><span class="item-price">65 DH</span></div><div class="item-desc">Nutella, glace chocolat, chantilly</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Fraise tagada</span><span class="item-price">65 DH</span></div><div class="item-desc">Fraise tagada, glace fraise, fraise fraîche, chantilly</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Kinder Bueno</span><span class="item-price">65 DH</span></div><div class="item-desc">Biscuit kinder bueno, glace chocolat, chantilly</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Le brownie monster</span><span class="item-price">90 DH</span></div></div></div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Smoothies</h3>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">The palm</span><span class="item-price">55 DH</span></div><div class="item-desc">Cacao en poudre, beurre de cacahuète, banane, ananas, datte</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Yogi berry</span><span class="item-price">65 DH</span></div><div class="item-desc">Lit de graines de chia, fraise, banane, miel</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Fantasy</span><span class="item-price">65 DH</span></div><div class="item-desc">Fraise, Papaye, Orange et Passion</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Coco Mango</span><span class="item-price">65 DH</span></div><div class="item-desc">Mangue, coco, jus d'ananas</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">After Work</span><span class="item-price">65 DH</span></div><div class="item-desc">Orange, carotte, pomme verte, gingembre, miel</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Apple Mint</span><span class="item-price">55 DH</span></div><div class="item-desc">Menthe, jus de pomme, fraise, fruit de la passion</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Vitamine</span><span class="item-price">55 DH</span></div><div class="item-desc">Kiwi, épinard, brocoli, pomme verte, ananas</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Éxotique</span><span class="item-price">65 DH</span></div><div class="item-desc">Pêche, Mangue, orange</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Day Dream</span><span class="item-price">65 DH</span></div><div class="item-desc">Myrtille, fraise, banane</div></div></div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Ice Tea & Ice Coffee</h3>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Ginger red</span><span class="item-price">45 DH</span></div><div class="item-desc">Gingembre frais, framboise, miel, citron</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Cucumber & kiwi</span><span class="item-price">45 DH</span></div><div class="item-desc">Concombre, kiwi, sucre blanc</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Strawberry & vanilla</span><span class="item-price">45 DH</span></div><div class="item-desc">Fraise fraîche, orange, sucre vanillé</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Mango & mint</span><span class="item-price">45 DH</span></div><div class="item-desc">Mangue, menthe fraîche, citron, orange</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Ice Latte Caramel</span><span class="item-price">45 DH</span></div><div class="item-desc">Avec chantilly</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Ice Latte Vanille</span><span class="item-price">45 DH</span></div><div class="item-desc">Avec chantilly</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Frappé Chocolat</span><span class="item-price">55 DH</span></div><div class="item-desc">Glace chocolat, cookies, café</div></div></div>
+                </article>
+
+                <!-- BOISSONS -->
+                <article class="menu-category" id="drinks">
+                    <div class="menu-side-image left">
+                         <img src="WhatsApp Image 2026-01-03 at 20.27.10.jpeg" alt="Cocktails">
+                    </div>
+                    <div class="menu-text-content">
+                        <h3>Cocktails & Jus</h3>
+                        <h4 style="margin: 0 0 10px; font-size:1.1rem; color:var(--primary-green);">Cocktails</h4>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Virgin mojito Classic</span><span class="item-price">45 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Virgin mojito fruits rouges</span><span class="item-price">55 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Virgin blue pina colada</span><span class="item-price">55 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Virgin pina colada classique</span><span class="item-price">50 DH</span></div></div></div>
+
+                        <h4 style="margin: 20px 0 10px; font-size:1.1rem; color:var(--primary-green); border-bottom: 1px solid #eee;">Jus</h4>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Jus d'orange</span><span class="item-price">35 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Jus de citron</span><span class="item-price">35 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Jus de carotte</span><span class="item-price">35 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Jus de citron gingembre</span><span class="item-price">40 DH</span></div></div></div>
+                        <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Jus de carotte gingembre</span><span class="item-price">40 DH</span></div></div></div>
+                    </div>
+                    <div class="menu-side-image right">
+                        <img src="WhatsApp Image 2026-01-04 at 14.33.38.jpeg" alt="Café">
                     </div>
                 </article>
 
-                <!-- DRINKS -->
-                <article class="menu-category" id="drinks">
-                    <h3>Boissons</h3>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Milkshakes</span><span class="item-price">65 DH</span></div>
-                            <div class="item-desc">Spéculos, Oreo, Nutella, Fraise tagada...</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Smoothies</span><span class="item-price">55-65 DH</span></div>
-                            <div class="item-desc">The palm, Yogi berry, Fantasy, Coco Mango...</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Cafés</span><span class="item-price">27-45 DH</span></div>
-                            <div class="item-desc">Espresso, Cappuccino, Latte macchiato, Mochaccino...</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <div class="menu-item-content">
-                            <div class="menu-header"><span class="item-name">Infusions & Thés</span><span class="item-price">30-40 DH</span></div>
-                            <div class="item-desc">Thé vert, Earl Grey, Infusions...</div>
-                        </div>
-                    </div>
+                <article class="menu-category">
+                    <h3>Softs & Cafés</h3>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Sidi Ali 50CL</span><span class="item-price">20 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Oulmès 25 cl</span><span class="item-price">20 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Oulmès 1L</span><span class="item-price">40 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Couca-Cola</span><span class="item-price">35 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Coca-Cola Zero</span><span class="item-price">35 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Sprite</span><span class="item-price">35 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Schweppes Citron</span><span class="item-price">35 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Schwepps Tonic</span><span class="item-price">35 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Hawai</span><span class="item-price">35 DH</span></div></div></div>
+
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Espresso</span><span class="item-price">27 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Double espresso</span><span class="item-price">37 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Cappuccino viennois</span><span class="item-price">35 DH</span></div><div class="item-desc">Crème Chantilly</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Cappuccino italien</span><span class="item-price">35 DH</span></div><div class="item-desc">Mousse de lait</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Latte macchiato</span><span class="item-price">35 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Caramel macchiato</span><span class="item-price">40 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Café viennois</span><span class="item-price">35 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Mochaccino</span><span class="item-price">45 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Café crème</span><span class="item-price">30 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Café royal</span><span class="item-price">35 DH</span></div><div class="item-desc">Crème fraîche</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Chocolat chaud</span><span class="item-price">35 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Chocolat viennois</span><span class="item-price">40 DH</span></div><div class="item-desc">Servi avec crème Chantilly</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Chocolat à l’ancienne</span><span class="item-price">45 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Thé marocain à la menthe</span><span class="item-price">30 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Thé américain</span><span class="item-price">35 DH</span></div><div class="item-desc">Lait & cannelle</div></div></div>
+                </article>
+
+                <article class="menu-category">
+                    <h3>Infusions</h3>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Thé noir Earl Grey</span><span class="item-price">40 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Thé noir Pluie d’été</span><span class="item-price">40 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Thé vert</span><span class="item-price">40 DH</span></div><div class="item-desc">Fleur de cerise japonaise</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Thé vert</span><span class="item-price">40 DH</span></div><div class="item-desc">Gingembre citron</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Thé blanc</span><span class="item-price">40 DH</span></div><div class="item-desc">Fruit printemps</div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Infusion réglisse anis</span><span class="item-price">40 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Rooibos punch cannelle</span><span class="item-price">40 DH</span></div></div></div>
+                    <div class="menu-item"><div class="menu-item-content"><div class="menu-header"><span class="item-name">Rooibos moka crème</span><span class="item-price">40 DH</span></div></div></div>
                 </article>
 
             </div>
         </div>
+        
         <!-- SECTION AVIS CLIENTS -->
-<section id="reviews" style="padding: 4rem 0; background-color: #fff;">
-    <div class="container">
-        <h2 class="section-title">Ce qu'ils en pensent</h2>
-        <p class="section-subtitle">L'avis de nos clients est notre plus grande fierté</p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-            
-            <!-- AVIS 1 -->
-            <article style="background-color: var(--bg-cream); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                <div style="color: var(--accent-gold); margin-bottom: 10px; font-size: 1.2rem;">★★★★★</div>
-                <p style="font-style: italic; color: #555; margin-bottom: 1.5rem; line-height: 1.6;">
-                    "Execellent et service sympathique 😉
-Le lieu est agréable et a une vue imprenable sur le mosquée Hassan 2.
-La vue de nuit est magnifique.
-De passage sur 1 semaine, nous y sommes allés 3 fois."
-                </p>
-                <div style="display: flex; align-items: center; gap: 10px;" >
-                    <!-- Image avatar aléatoire (remplacez par de vraies photos si vous avez) -->
-                    <img src="https://ui-avatars.com/api/?name=Sarah+L&background=C5A065&color=fff" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
-                    <div>
-                        <strong style="display: block; color: var(--primary-brown);">Sarah L.</strong>
-                        <small style="color: #888;">Visiteur TripAdvisor</small>
-                    </div>
+        <section id="reviews" style="padding: 4rem 0; background-color: #fff;">
+            <div class="container">
+                <h2 class="section-title">Ce qu'ils en pensent</h2>
+                <p class="section-subtitle">L'avis de nos clients est notre plus grande fierté</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <article style="background-color: var(--bg-cream); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <div style="color: var(--accent-gold); margin-bottom: 10px; font-size: 1.2rem;">★★★★★</div>
+                        <p style="font-style: italic; color: #555; margin-bottom: 1.5rem; line-height: 1.6;">"Execellent et service sympathique 😉 Le lieu est agréable et a une vue imprenable sur le mosquée Hassan 2."</p>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+L&background=C5A065&color=fff" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                            <div><strong style="display: block; color: var(--primary-brown);">Sarah L.</strong><small style="color: #888;">Visiteur TripAdvisor</small></div>
+                        </div>
+                    </article>
+                    <article style="background-color: var(--bg-cream); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <div style="color: var(--accent-gold); margin-bottom: 10px; font-size: 1.2rem;">★★★★</div>
+                        <p style="font-style: italic; color: #555; margin-bottom: 1.5rem; line-height: 1.6;">"Tout était parfait, meilleur filet de boeuf, c’était l’un des meilleurs que j’ai eu depuis très longtemps."</p>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="https://ui-avatars.com/api/?name=Karim+B&background=556B2F&color=fff" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                            <div><strong style="display: block; color: var(--primary-brown);">Karim B.</strong><small style="color: #888;">Visiteur TripAdvisor</small></div>
+                        </div>
+                    </article>
+                    <article style="background-color: var(--bg-cream); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <div style="color: var(--accent-gold); margin-bottom: 10px; font-size: 1.2rem;">★★★★★</div>
+                        <p style="font-style: italic; color: #555; margin-bottom: 1.5rem; line-height: 1.6;">"Coin trés calme avec une vue panoramique . Le service de Mohmed Oussi est trés bon service."</p>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="https://ui-avatars.com/api/?name=Amira+T&background=4E342E&color=fff" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                            <div><strong style="display: block; color: var(--primary-brown);">Amira T.</strong><small style="color: #888;">Visitrice Facebook</small></div>
+                        </div>
+                    </article>
                 </div>
-            </article>
-
-            <!-- AVIS 2 -->
-            <article style="background-color: var(--bg-cream); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                <div style="color: var(--accent-gold); margin-bottom: 10px; font-size: 1.2rem;">★★★★</div>
-                <p style="font-style: italic; color: #555; margin-bottom: 1.5rem; line-height: 1.6;">
-                    "Tout était parfait, meilleur filet de boeuf, c’était l’un des meilleurs que j’ai eu depuis très longtemps, et l’endroit est très bien situé."
-                </p>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <img src="https://ui-avatars.com/api/?name=Karim+B&background=556B2F&color=fff" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
-
-                        <strong style="display: block; color: var(--primary-brown);">Karim B.</strong>
-                        <small style="color: #888;">Visiteur TripAdvisor</small>
-                    </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://www.google.com/maps/place/Boca+Chica/@33.6089382,-7.6530558,17z/data=!4m8!3m7!1s0xda7d254393ae653:0xe7bf22c097783100!8m2!3d33.6089338!4d-7.6504809!9m1!1b1!16s%2Fg%2F11bzx2pc42?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-email" style="font-size: 0.8rem; padding: 10px 20px;">Voir tous nos avis sur Google</a>
                 </div>
-            </article>
-
-            <!-- AVIS 3 -->
-            <article style="background-color: var(--bg-cream); padding: 2rem; border-radius: 8px; border-top: 4px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                <div style="color: var(--accent-gold); margin-bottom: 10px; font-size: 1.2rem;">★★★★★</div>
-                <p style="font-style: italic; color: #555; margin-bottom: 1.5rem; line-height: 1.6;">
-                    "Coin trés calme avec une vue panoramique . Le service de Mohmed Oussi est trés bon service . Pour le menu est agréale . C'est une trés bonne expirience avec vous ."
-                </p>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <img src="https://ui-avatars.com/api/?name=Amira+T&background=4E342E&color=fff" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
-                    <div>
-                        <strong style="display: block; color: var(--primary-brown);">Amira T.</strong>
-                        <small style="color: #888;">Visitrice Facebook</small>
-                    </div>
-                </div>
-            </article>
-
-        </div>
-
-        <!-- BOUTON VOIR TOUS -->
-        <div style="text-align: center; margin-top: 2rem;">
-            <a href="https://www.google.com/maps/place/Boca+Chica/@33.6089382,-7.6530558,17z/data=!4m8!3m7!1s0xda7d254393ae653:0xe7bf22c097783100!8m2!3d33.6089338!4d-7.6504809!9m1!1b1!16s%2Fg%2F11bzx2pc42?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-email" style="font-size: 0.8rem; padding: 10px 20px;">
-                Voir tous nos avis sur Google
-            </a>
-        </div>
-    </div>
-</section>
+            </div>
+        </section>
     </section>
 
     <!-- RESERVATION SECTION -->
@@ -1139,62 +1134,23 @@ De passage sur 1 semaine, nous y sommes allés 3 fois."
         <div class="container">
             <h2 class="section-title">Réserver une table</h2>
             <p class="section-subtitle">Réservez votre moment chez Boca Chica en quelques clics</p>
-
             <div class="reservation-container">
                 <form action="https://formspree.io/f/xpqwjqgo" method="POST" class="reservation-form">
-
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Nom complet</label>
-                            <input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone" class="form-label">Téléphone</label>
-                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="06 XX XX XX XX" required>
-                        </div>
+                        <div class="form-group"><label for="name" class="form-label">Nom complet</label><input type="text" id="name" name="name" class="form-input" placeholder="Votre nom" required></div>
+                        <div class="form-group"><label for="phone" class="form-label">Téléphone</label><input type="tel" id="phone" name="phone" class="form-input" placeholder="06 XX XX XX XX" required></div>
                     </div>
-
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="date" class="form-label">Date</label>
-                            <input type="date" id="date" name="date" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="time" class="form-label">Heure</label>
-                            <input type="time" id="time" name="time" class="form-input" required>
-                        </div>
+                        <div class="form-group"><label for="date" class="form-label">Date</label><input type="date" id="date" name="date" class="form-input" required></div>
+                        <div class="form-group"><label for="time" class="form-label">Heure</label><input type="time" id="time" name="time" class="form-input" required></div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="guests" class="form-label">Nombre de personnes</label>
-                        <select id="guests" name="guests" class="form-select" required>
-                            <option value="1">1 personne</option>
-                            <option value="2" selected>2 personnes</option>
-                            <option value="3">3 personnes</option>
-                            <option value="4">4 personnes</option>
-                            <option value="5">5 personnes</option>
-                            <option value="6+">6 personnes ou plus</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message" class="form-label">Message (Optionnel)</label>
-                        <textarea id="message" name="message" rows="3" class="form-textarea"
-                            placeholder="Anniversaire, terrasse, enfants..."></textarea>
-                    </div>
-
+                    <div class="form-group"><label for="guests" class="form-label">Nombre de personnes</label><select id="guests" name="guests" class="form-select" required><option value="1">1 personne</option><option value="2" selected>2 personnes</option><option value="3">3 personnes</option><option value="4">4 personnes</option><option value="5">5 personnes</option><option value="6+">6 personnes ou plus</option></select></div>
+                    <div class="form-group"><label for="message" class="form-label">Message (Optionnel)</label><textarea id="message" name="message" rows="3" class="form-textarea" placeholder="Anniversaire, terrasse, enfants..."></textarea></div>
                     <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
-                        <button type="button" onclick="sendReservation(event)" class="btn btn-primary">
-                            Réserver via WhatsApp
-                        </button>
-                        <button type="submit" class="btn btn-email">
-                            Envoyer par Email
-                        </button>
+                        <button type="button" onclick="sendReservation(event)" class="btn btn-primary">Réserver via WhatsApp</button>
+                        <button type="submit" class="btn btn-email">Envoyer par Email</button>
                     </div>
-
-                    <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">
-                        <em>Choisissez votre moyen de communication préféré.</em>
-                    </p>
+                    <p style="font-size: 0.8rem; color: #888; margin-top: 10px;"><em>Choisissez votre moyen de communication préféré.</em></p>
                 </form>
             </div>
         </div>
@@ -1209,66 +1165,49 @@ De passage sur 1 semaine, nous y sommes allés 3 fois."
                 <div class="contact-info">
                     <div class="info-item">
                         <div class="info-icon">📍</div>
-                        <div class="info-content">
-                            <h4>Adresse</h4>
-                            <p>Rue Oualidia<br>20054 Casablanca, Morocco</p>
-                        </div>
+                        <div class="info-content"><h4>Adresse</h4><p>Rue Oualidia<br>20054 Casablanca, Morocco</p></div>
                     </div>
                     <div class="info-item">
                         <div class="info-icon">📞</div>
-                        <div class="info-content">
-                            <h4>Téléphone</h4>
-                            <p><a href="tel:+212681216262">06 81 21 62 62</a></p>
-                        </div>
+                        <div class="info-content"><h4>Téléphone</h4><p><a href="tel:+212681216262">06 81 21 62 62</a></p></div>
                     </div>
                     <div class="info-item">
                         <div class="info-icon">🕒</div>
-                        <div class="info-content">
-                            <h4>Horaires</h4>
-                            <p>Ouvert tous les jours<br>de 09h00 à 22h30</p>
-                        </div>
+                        <div class="info-content"><h4>Horaires</h4><p>Ouvert tous les jours<br>de 09h00 à 22h30</p></div>
                     </div>
                 </div>
                 <div class="map-container">
-                    <iframe title="Carte Boca Chica Casablanca"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13291.433907981645!2d-7.6503873!3d33.6089763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d254393ae653%3A0xe7bf22c097783100!2sBoca%20Chica!5e0!3m2!1sfr!2sma!4v1767518983276!5m2!1sfr!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                        allowfullscreen></iframe>
+                    <iframe title="Carte Boca Chica Casablanca" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13291.433907981645!2d-7.6503873!3d33.6089763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d254393ae653%3A0xe7bf22c097783100!2sBoca%20Chica!5e0!3m2!1sfr!2sma!4v1767518983276!5m2!1sfr!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
     </section>
-     <!-- SECTION ÉVÉNEMENTS -->
- <section style="background-color: var(--primary-brown); padding: 4rem 0; color: var(--bg-cream);">
-    <div class="container">
-        <h2 class="section-title" style="color: var(--bg-white); border-bottom-color: var(--accent-gold);">Événements & Actualités</h2>
-        <p class="section-subtitle" style="color: #ddd;">Ne manquez rien de la vie chez Boca Chica</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-            
-            <!-- Événement 1 -->
-            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
-                <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.3rem;">Soirée Jazz Live</h3>
-                <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">Tous les vendredis soirs à partir de 20h00.</p>
-                <p style="font-style: italic;">Profitez de nos cocktails signatures accompagnés de musique jazz live.</p>
+     
+    <!-- SECTION ÉVÉNEMENTS -->
+     <section style="background-color: var(--primary-brown); padding: 4rem 0; color: var(--bg-cream);">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--bg-white); border-bottom-color: var(--accent-gold);">Événements & Actualités</h2>
+            <p class="section-subtitle" style="color: #ddd;">Ne manquez rien de la vie chez Boca Chica</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
+                    <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.3rem;">Soirée Jazz Live</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">Tous les vendredis soirs à partir de 20h00.</p>
+                    <p style="font-style: italic;">Profitez de nos cocktails signatures accompagnés de musique jazz live.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
+                    <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.3rem;">Brunch du Dimanche</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">De 10h00 à 15h00.</p>
+                    <p style="font-style: italic;">Formule illimitée avec jus frais et viennoiseries maison.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
+                    <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.3rem;">Happy Hour</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">Du Lundi au Jeudi, 17h00 - 19h00.</p>
+                    <p style="font-style: italic;">-50% sur tous les cocktails et mocktails de la carte.</p>
+                </div>
             </div>
-
-            <!-- Événement 2 -->
-            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
-                <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.3rem;">Brunch du Dimanche</h3>
-                <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">De 10h00 à 15h00.</p>
-                <p style="font-style: italic;">Formule illimitée avec jus frais et viennoiseries maison.</p>
-            </div>
-
-             <!-- Événement 3 -->
-             <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
-                <h3 style="color: var(--accent-gold); margin-bottom: 0.5rem; font-size: 1.3rem;">Happy Hour</h3>
-                <p style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">Du Lundi au Jeudi, 17h00 - 19h00.</p>
-                <p style="font-style: italic;">-50% sur tous les cocktails et mocktails de la carte.</p>
-            </div>
-
         </div>
-    </div>
- </section>
+     </section>
+
     <!-- FOOTER -->
     <footer>
         <div class="container">
@@ -1296,92 +1235,56 @@ De passage sur 1 semaine, nous y sommes allés 3 fois."
             const time = document.getElementById('time').value;
             const guests = document.getElementById('guests').value;
             const message = document.getElementById('message').value;
-
             const phoneNumber = "212681216262";
-
             let text = `Bonjour Boca Chica, je souhaite réserver une table.%0A%0A`;
             text += `📅 Date : ${date}%0A`;
             text += `⏰ Heure : ${time}%0A`;
             text += `👥 Personnes : ${guests}%0A`;
             text += `👤 Nom : ${name}%0A`;
             text += `📱 Téléphone : ${phone}%0A`;
-            if (message) {
-                text += `📝 Note : ${message}`;
-            }
-
+            if (message) { text += `📝 Note : ${message}`; }
             window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
         }
     </script>
     
     <script>
-        // --- 1. CUSTOM CURSOR & INTERACTIVITY ---
         const cursorDot = document.getElementById('cursor-dot');
         const cursorOutline = document.getElementById('cursor-outline');
-
         if (window.matchMedia("(pointer: fine)").matches) {
             window.addEventListener('mousemove', function (e) {
                 const posX = e.clientX;
                 const posY = e.clientY;
-
                 cursorDot.style.left = `${posX}px`;
                 cursorDot.style.top = `${posY}px`;
-
-                cursorOutline.animate({
-                    left: `${posX}px`,
-                    top: `${posY}px`
-                }, { duration: 500, fill: "forwards" });
+                cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
             });
-
             const interactives = document.querySelectorAll('a, button, .btn, .menu-item, input, textarea, select');
             interactives.forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
             });
         }
-
-        // --- 2. HEADER SCROLL EFFECT ---
         const header = document.querySelector('header');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            if (window.scrollY > 50) { header.classList.add('scrolled'); } else { header.classList.remove('scrolled'); }
         });
-
-        // --- 3. MENU ACTIVE STATE HIGHLIGHTER ---
-        // Détecte quelle section du menu est visible pour surligner le lien dans la nav
         const sections = document.querySelectorAll('.menu-category');
         const navLinks = document.querySelectorAll('.menu-sticky-nav li a');
-
         const menuObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Retirer active de tous
                     navLinks.forEach(link => link.classList.remove('active'));
-                    // Ajouter active au bon lien
                     const id = entry.target.getAttribute('id');
                     const activeLink = document.querySelector(`.menu-sticky-nav li a[href="#${id}"]`);
                     if (activeLink) activeLink.classList.add('active');
                 }
             });
-        }, { threshold: 0.3 }); // Déclenche quand 30% de la section est visible
-
-        sections.forEach(section => {
-            if(section.id) menuObserver.observe(section);
-        });
-
-        // --- 4. BACK TO TOP VISIBILITY ---
+        }, { threshold: 0.3 });
+        sections.forEach(section => { if(section.id) menuObserver.observe(section); });
         const backToTopBtn = document.getElementById('back-to-top');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
+            if (window.scrollY > 500) { backToTopBtn.classList.add('visible'); } else { backToTopBtn.classList.remove('visible'); }
         });
-
-        // --- 5. FADE IN ON SCROLL ---
         const fadeObserverOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
         const fadeObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1392,7 +1295,6 @@ De passage sur 1 semaine, nous y sommes allés 3 fois."
                 }
             });
         }, fadeObserverOptions);
-
         document.querySelectorAll('.menu-category, .section-title, .about-text, .about-image, .reservation-container').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
@@ -1401,5 +1303,4 @@ De passage sur 1 semaine, nous y sommes allés 3 fois."
         });
     </script>
 </body>
-
 </html>
